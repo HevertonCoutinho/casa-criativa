@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ideias Casa Criativa</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body id="page-ideas">
+    
+    <div id="container">
+        <header>
+            <a href="index.html">
+                <img src="27pdZLL - Imgur.png" alt="logo marca">
+            </a>
+            <nav>
+                <li><a href="index.html">inicio</a></li>
+                <li><a class="button" href="#" onclick="onOff()">nova ideia</a></li>
+            </nav>
+        </header>
+        <section id="title">
+            <p>Em exibição</p>
+            <h1>ideias</h1>
+        </section> 
+        <main>
+            <section id="ideas">
+                <div class="idea">
+                    <img 
+                        src="https://image.flaticon.com/icons/svg/2728/2728995.svg" 
+                        alt="imagem de curso de programação">
+                    <div class="content">
+                        <h3>Cursos de programação</h3>
+                        <p>Estudo</p>
+                        <div class="description">
+                        Faça um curso de programação para ocupar sua cabeça.
+                        </div>
+                        <a href="N">Ir para ideia</a>
+                    </div>             
+                </div>
+                <div class="idea">
+                    <img 
+                        src="https://image.flaticon.com/icons/svg/906/906201.svg" 
+                        alt="imagem de exercicios">
+                    <div class="content">
+                        <h3>Exercicios</h3>
+                        <p>Saude</p>
+                        <div class="description">
+                            Faça exercicios para ocupar sua cabeça.
+                        </div>
+                        <a href="N">Ir para ideia</a>
+                    </div>  
+                </div>
+                <div class="idea">
+                    <img 
+                        src="https://image.flaticon.com/icons/svg/2729/2729027.svg" 
+                        alt="imagem de meditação">
+                    <div class="content">
+                        <h3>Meditação</h3>
+                        <p>Mentalidade</p>
+                        <div class="description">
+                            Faça meditação para ocupar sua cabeça.
+                        </div>
+                        <a href="N">Ir para ideia</a>
+                    </div>  
+                </div>
+                <div class="idea">
+                    <img 
+                        src="https://image.flaticon.com/icons/svg/2729/2729032.svg" 
+                        alt="imagem de Karaoke">
+                    <div class="content">
+                        <h3>Karaoke</h3>
+                        <p>Cantar</p>
+                        <div class="description">
+                            Cante para ocupar sua cabeça.
+                        </div>
+                        <a href="N">Ir para ideia</a>
+                    </div>    
+                </div>
+            </section>
+        </main>
+                <footer>
+                    Com ♥️ <a href="http://rocketseat.com.br" target="blank">Rocketset</a>
+                </footer>  
+    </div>
+    
+    <div id="modal" class="hide">
+        <div class="content">
+            <h1>Nova ideia</h1>
+
+            <form action="">
+            
+                <div class="input-wrapper">
+                    <label for="title">titulo da ideia</label>
+                    <input type="text" name="title">
+                </div>
+            
+                <div class="input-wrapper">
+                    <label for="category">categoria</label>
+                    <input type="text" name="category">
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="image">Link da imagem</label>
+                    <input type="url" name="image">
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="description">digite uma descrição para esta ideia</label>
+                    <textarea name="description" cols="30" rows="10"></textarea>
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="link">Link da ideia</label>
+                    <input type="url" name="link">
+                </div>
+                
+                <a href="#" onclick="onOff()">Voltar</a>
+                <button>Salvar</button>
+                
+
+            </form>
+        </div>
+    </div> 
+    <script src="script.js"></script>
+</body>
+</html>
