@@ -3,51 +3,7 @@ const express = require("express")
 const server = express()
 
 
-
-const ideas = [
-    {
-        img: "https://image.flaticon.com/icons/svg/2728/2728995.svg",
-        title: "Cursos de programação",
-        category: "Estudo",
-        description: "Faça um curso de programação para ocupar sua cabeça.",
-        url: "https://www.rocketseat.com.br"
-    },
-    {
-        img: "https://image.flaticon.com/icons/svg/906/906201.svg",
-        title: "Exercicios",
-        category: "Saude",
-        description: "Faça exercicios para ocupar sua cabeça.",
-        url: "https://www.rocketseat.com.br"
-    },
-    {
-        img: "https://image.flaticon.com/icons/svg/2729/2729027.svg",
-        title: "Meditação",
-        category: "Estudo",
-        description: "faça meditação para ocupar sua cabeça.",
-        url: "https://www.rocketseat.com.br"
-    },
-    {
-        img: "https://image.flaticon.com/icons/svg/2729/2729032.svg",
-        title: "Karaokê",
-        category: "Cantar",
-        description: "Quem canta seus males espanta.",
-        url: "https://www.rocketseat.com.br"
-    },
-    {
-        img: "https://image.flaticon.com/icons/svg/883/883746.svg",
-        title: "Edição de fotos",
-        category: "Criatividade",
-        description: "Faça cursos de edição de fotos",
-        url: "https://www.rocketseat.com.br"
-    },
-    {
-        img: "https://image.flaticon.com/icons/svg/774/774502.svg",
-        title: "Inglês",
-        category: "Idiomas",
-        description: "Experimente aprender um novo idioma",
-        url: "https://www.rocketseat.com.br"
-    }
-]
+const db = require("./db")
 
 //CONFIGURAÇÃO DO NUNJUCKS
 const nunjucks = require("nunjucks")
@@ -61,27 +17,74 @@ nunjucks.configure("views", {
 //configurar arquivos estaticos
 server.use(express.static("public"))
 
+//habilitar o uso do req.body
+server.use(express.urlencoded({ extended: true }))
+
 //criei um rota/
 //capturei o pedido do cliente para responder
 server.get("/", function (req, res) {
-
-    const reversedIdeas = [...ideas].reverse()
-
-    let lastIdeas = []
-    for (let idea of reversedIdeas) {
-        if (lastIdeas.length < 2) {
-            lastIdeas.push(idea)
+    db.all(`SELECT * FROM ideas`, function (err, rows) {
+        if (err) {
+            console.log(err)
+            return res.send("Erro no banco de dados")
         }
-    }
 
-    return res.render("index.html", { ideas: lastIdeas })
+        const reversedIdeas = [...rows].reverse()
+
+        let lastIdeas = []
+        for (let idea of reversedIdeas) {
+            if (lastIdeas.length < 2) {
+                lastIdeas.push(idea)
+            }
+        }
+
+        return res.render("index.html", { ideas: lastIdeas })
+    })
+
 })
 
 server.get("/ideias", function (req, res) {
+    db.all(`SELECT * FROM ideas`, function (err, rows) {
+        if (err) {
+            console.log(err)
+            return res.send("Erro no banco de dados")
+        }
 
-    const reversedIdeas = [...ideas].reverse()
+        const reversedIdeas = [...rows].reverse()
 
-    return res.render("ideias.html", { ideas: reversedIdeas})
+        return res.render("ideias.html", { ideas: reversedIdeas })
+    })
+})
+
+//fornecendo os valores ao banco
+server.post("/", function (req, res) {
+    const query = `
+        INSERT INTO ideas(
+            image,
+            title,
+            category,
+            description,
+            link
+        ) VALUES (?,?,?,?,?);
+   `
+    const values = [
+        req.body.image,
+        req.body.title,
+        req.body.category,
+        req.body.description,
+        req.body.link,
+    ]
+    
+    //redirecionando pagina ideias
+    db.run(query, values, function (err) {
+        if (err) {
+            console.log(err)
+            return res.send("Erro no banco de dados")
+        }
+
+        return res.redirect("/ideias")
+ 
+    })
 })
 
 //liguei meu servidor na porta 3000
