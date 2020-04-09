@@ -58,13 +58,14 @@ server.get("/ideias", function (req, res) {
 
 //fornecendo os valores ao banco
 server.post("/", function (req, res) {
+      
     const query = `
         INSERT INTO ideas(
             image,
             title,
             category,
             description,
-            link
+            url
         ) VALUES (?,?,?,?,?);
    `
     const values = [
@@ -72,7 +73,7 @@ server.post("/", function (req, res) {
         req.body.title,
         req.body.category,
         req.body.description,
-        req.body.link,
+        req.body.url,
     ]
     
     //redirecionando pagina ideias

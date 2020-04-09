@@ -22,18 +22,19 @@ function checkFields(event) {
         "image",
         "category",
         "description",
-        "link",
+        "url",
 
     ]
 
     const isEmpty = valuesToCheck.find(function(value) {
         const checkIfIsString = typeof event.target[value].value == "string"
-        const checkIfIsEmpty = !event.target["value"].value.trim()
+        const checkIfIsEmpty = !event.target[value].value.trim()
 
-        if (CheckIfIsString && checkIfIsEmpty) {
+        if (checkIfIsString && checkIfIsEmpty) {
             return true
         }
     })
+
     if(isEmpty) {
         event.preventDefault()
         alert("Por favor preencha todos os campos")
